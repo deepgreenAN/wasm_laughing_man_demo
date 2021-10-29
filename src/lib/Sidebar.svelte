@@ -88,6 +88,13 @@
             <button id="apply-button" on:click={e => {apply_to_wasm_app()}}> 適用 </button>
         </div>
         <a href="https://gist.github.com/johan/1066590" target="_blank" rel="noopener noreferrer">画像引用元(Johan Sundströmさん)</a>
+        <div id="library-link">
+            顔認識には
+            <a href="https://github.com/atomashpolskiy/rustface" target="_blank" rel="noopener noreferrer">rustface</a>
+            を利用しています(元ライブラリ
+            <a href="https://github.com/seetaface/SeetaFaceEngine/tree/master/FaceDetection" target="_blank" rel="noopener noreferrer">Seetaface</a>
+            )
+        </div>
     </div>
 </aside>
 
@@ -142,5 +149,10 @@
 
     .side-bar-content a {
         margin-top: 1rem;
+    }
+
+    #library-link {
+        margin-top: 1rem;
+        font-size: 0.8rem;
     }
 </style>

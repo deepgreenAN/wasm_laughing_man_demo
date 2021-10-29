@@ -126,19 +126,14 @@ pub async fn init_video(app_opt: IAppOption) -> Result<(), JsValue>{
     media_constraints.video(&JsValue::TRUE);
 
     let stream_promise = navigator()?
-        .media_devices()
-        .map_err(|_|{JsValue::from(Error::new("cannot mdeia devices error"))})?
-        .get_user_media_with_constraints(&media_constraints)
-        .map_err(|_|{JsValue::from(Error::new("cannot get user media with constraints error"))})?;
+        .media_devices()?
+        .get_user_media_with_constraints(&media_constraints)?;
     
-    let stream = JsFuture::from(stream_promise).await
-        .map_err(|_|{JsValue::from(Error::new("cannot get stream from media error"))})?
-        .dyn_into::<MediaStream>()
-        .map_err(|_|{JsValue::from(Error::new("cannot convert to mediastream error(dyn into error)"))})?;
+    let stream = JsFuture::from(stream_promise).await?
+        .dyn_into::<MediaStream>()?;
 
     video.set_src_object(Some(&stream));
-    JsFuture::from(video.play().unwrap()).await
-        .map_err(|_|{JsValue::from(Error::new("cannot play video error"))})?;
+    JsFuture::from(video.play()?).await?;
     Ok(())
 }
 
@@ -206,18 +201,12 @@ impl CanvasApp {
         
         let make_image_context = context2d(&app_opt.make_image_canvas_id)?;
         
-        // app_canvas
-        //let app_canvas = canvas(&app_opt.canvas_app_id)?;
-        //app_canvas.set_width(video_show_width);
-        //app_canvas.set_height(video_show_height);
-
+        // app_context
         let app_context = context2d(&app_opt.canvas_app_id)?;
         app_context.set_font("20px serif");
 
         // video_canvas_parent
         let video_canvas_parent = get_element_by_id::<HtmlElement>(&app_opt.video_canvas_parent_id)?;
-        //video_canvas_parent.style().set_property("width", &format!("{}px", video_width))?;
-        //video_canvas_parent.style().set_property("height", &format!("{}px", video_height))?;
         let video_canvas_parent_node = video_canvas_parent.dyn_into::<Node>()?;
 
         // detector
@@ -268,14 +257,14 @@ impl CanvasApp {
             0.0,
             self.image_width as f64,
             self.image_height as f64
-        ).map_err(|_|{JsValue::from(Error::new("draw image with video element error"))})?;
+        )?;
 
         let image_vec = self.make_image_context.get_image_data(
             0.0,
             0.0,
             self.image_width as f64,
             self.image_height as f64
-        ).map_err(|_|{JsValue::from(Error::new("get_image_data from canvas error"))})?
+        )?
         .data()
         .0;
 
@@ -365,7 +354,7 @@ impl CanvasApp {
             &text_info,
             text_x,
             text_y
-        ).map_err(|_|{JsValue::from(Error::new("fill text to canvas error"))})?;
+        )?;
 
         Ok(())
         

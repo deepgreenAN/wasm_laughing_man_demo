@@ -26,7 +26,8 @@ pub fn context2d(canvas_id: &str) -> Result<web_sys::CanvasRenderingContext2d, J
     canvas(canvas_id)?
         .get_context("2d")?
         .ok_or(JsValue::from(Error::new("cannot get element by id")))?
-        .dyn_into::<web_sys::CanvasRenderingContext2d>().map_err(|_|{Error::new("convert error(dyn into)").into()})
+        .dyn_into::<web_sys::CanvasRenderingContext2d>()
+        .map_err(|_|{Error::new("convert error(dyn into)").into()})
 }
 
 pub fn navigator() -> Result<web_sys::Navigator, JsValue> {

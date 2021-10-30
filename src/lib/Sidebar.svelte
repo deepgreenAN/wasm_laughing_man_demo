@@ -46,8 +46,8 @@
 <aside class="expand-side-bar" class:open>
 	<div class="side-bar-content">
         <label>
-            ビデオサイズに対する画像比[0, 1]:
-            <input type=number min=0 max=1 step=0.01 bind:value={modify_option.image_over_video_scale}>
+            ビデオサイズに対する画像比[0.1, 1]:
+            <input type=number min=0.1 max=1 step=0.01 bind:value={modify_option.image_over_video_scale}>
         </label>
         <label>
             最小顔サイズ[20, ):
@@ -62,8 +62,8 @@
             <input type=number min=0.01 max=0.99 step=0.01 bind:value={modify_option.pyramid_scale_factor}>
         </label>
         <label>
-            スライドウインドウステップサイズ[0, ):
-            <input type=number min=0 step=1 bind:value={modify_option.slide_window_step}>
+            スライドウインドウステップサイズ[1, ):
+            <input type=number min=1 step=1 bind:value={modify_option.slide_window_step}>
         </label>
         <label>
             笑い男モード:

@@ -1,7 +1,16 @@
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::{JsValue, JsCast};
 use wasm_bindgen_futures::JsFuture;
-use web_sys::{Document, HtmlElement, HtmlImageElement, HtmlVideoElement, MediaStream, MediaStreamConstraints, Node, Performance};
+use web_sys::{
+    Document, 
+    HtmlElement, 
+    HtmlImageElement, 
+    HtmlVideoElement, 
+    MediaStream, 
+    MediaStreamConstraints, 
+    Node, 
+    Performance
+};
 use js_sys::Error;
 use serde::{Deserialize};
 use rustface::{Detector, read_model, Rectangle};
